@@ -49,6 +49,7 @@
         "Bundle 'git://github.com/slack/vim-fuzzyfinder.git'
         Bundle 'git://github.com/vim-scripts/vimwiki.git'
         Bundle 'git://github.com/scrooloose/syntastic.git'
+        Bundle 'git://github.com/vim-scripts/TaskList.vim.git'
     " Lua
         "Bundle 'git://github.com/vim-scripts/lua.vim.git'
         "Bundle 'git://github.com/rkowal/Lua-Omni-Vim-Completion.git'
@@ -70,6 +71,7 @@
         Bundle 'git://github.com/pangloss/vim-javascript.git'
         Bundle 'git://github.com/itspriddle/vim-jquery.git'
         Bundle 'git://github.com/kchmck/vim-coffee-script.git'
+        Bundle 'git://github.com/walm/jshint.vim.git'
     " JSON
         Bundle 'git://github.com/leshill/vim-json.git'
     " PHP
@@ -165,6 +167,9 @@
     " Не бибикать!
         set visualbell " Use visual bell instead of beeping
         set t_vb=
+
+    " http://www.allaboutvim.ru/2012/03/blog-post.html
+        set path=.,,**
 
     " Символ табуляции и конца строки
         if has('multi_byte')
@@ -262,7 +267,7 @@
         set foldtext=MyFoldText()
 
         set foldcolumn=0        " Ширина строки где располагается фолдинг
-        set foldmethod=indent   " Фолдинг по отступам
+        set foldmethod=manual   " Фолдинг по отступам
         set foldnestmax=10      " Глубина фолдинга 10 уровней
         set nofoldenable        " Не фолдить по умолчанию
         set foldlevel=1         " This is just what i use
@@ -373,6 +378,7 @@
 
     " ,s
         nnoremap <leader>s :%s//<left>
+        vnoremap <leader>s :s//<left>
 
     " Перемещение строк
         " переместить одну строку
@@ -528,12 +534,16 @@
         inoremap (<CR> (<CR>)<Esc>O
         inoremap [<CR> [<CR>]<Esc>O
 
+    " Fold with space
+        "nnoremap <CR> za
+        "vnoremap <CR> zf
+
     " Переключение вкладки по табу
         nmap <Tab> gt
         nmap <S-Tab> gT
 
     " Ремапим русские символы
-        set langmap=ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>
+        " set langmap=ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>
 
 
 " Environment
@@ -549,8 +559,10 @@
         set backspace=indent,eol,start
 
     " Backup и swp файлы
-        set backupdir=~/.vimi/bac//,/tmp " Директория для backup файлов
-        set directory=~/.vimi/swp//,/tmp " Директория для swp файлов
+        set nobackup " Отключаем создание бэкапов
+        set noswapfile " Отключаем создание swap файлов
+        "set backupdir=~/.vimi/bac//,/tmp " Директория для backup файлов
+        "set directory=~/.vimi/swp//,/tmp " Директория для swp файлов
 
     " Загрузка предыдущей сессии
         set viminfo='10,\"100,:20,%,n~/.viminfo
@@ -602,7 +614,8 @@
 
     " Solarized
         syntax enable
-        let g:solarized_termcolors=256
+        " http://stackoverflow.com/questions/7278267/incorrect-colors-with-vim-in-iterm2-using-solarized#comment11144700_7278548
+        let g:solarized_termcolors=16
         set background=dark
         try
             colorscheme solarized
